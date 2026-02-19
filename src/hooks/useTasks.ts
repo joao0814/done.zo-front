@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { type Task } from "../types";
-import { taskService } from "../assets/services/taskService";
+import { taskService } from "../services/taskService";
 
 export const useTasks = () => {
   const [tasks, setTasks] = useState<Task[]>([]);

@@ -1,75 +1,18 @@
-import { useEffect, useState } from "react";
-import { useTasks } from "./hooks/useTasks";
-import { type Task } from "./types";
-import { TaskModal } from "./components/TaskModal";
-import { TaskCard } from "./components/TaskCard";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Login } from "./components/Login";
+import TaskList from "./TaskList";
 import "./App.css";
 
-function App() {
-  const { tasks, loading, loadTasks, createTask, removeTask, updateTask } =
-    useTasks();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [taskToEdit, setTaskToEdit] = useState<Task | null>(null);
-
-  useEffect(() => {
-    loadTasks();
-  }, [loadTasks]);
-
-  const handleOpenEdit = (task: Task) => {
-    setTaskToEdit(task);
-    setIsModalOpen(true);
-  };
-
-  const handleOpenCreate = () => {
-    setTaskToEdit(null);
-    setIsModalOpen(true);
-  };
-
-  const handleSubmit = async (titulo: string, descricao: string) => {
-    if (taskToEdit) {
-      await updateTask(taskToEdit.id, titulo, descricao);
-    } else {
-      await createTask(titulo, descricao);
-    }
-    setIsModalOpen(false);
-  };
-
-  if (loading)
-    return <div className="loading-state">Carregando...</div>;
-
+export default function App() {
   return (
-    <div className="app-container">
-      <div className="app-content">
-        <header className="app-header">
-          <h1 className="app-title">My Tasks</h1>
-          <button
-            onClick={handleOpenCreate}
-            className="app-btn-new"
-          >
-            + Nova Tarefa
-          </button>
-        </header>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
 
-        <main className="tasks-grid">
-          {tasks.map((task) => (
-            <TaskCard
-              key={task.id}
-              task={task}
-              onEdit={handleOpenEdit}
-              onDelete={removeTask}
-            />
-          ))}
-        </main>
+        <Route path="/tasks" element={<TaskList />} />
 
-        <TaskModal
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          onSubmit={handleSubmit}
-          taskToEdit={taskToEdit}
-        />
-      </div>
-    </div>
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;
