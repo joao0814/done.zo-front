@@ -1,42 +1,229 @@
-#root {
-  max-width: 1280px;
+/* Layout principal */
+.app-container {
+  min-height: 100vh;
+  background-color: var(--bg-main);
+  padding: 2.5rem 1.5rem;
+}
+
+.app-content {
+  max-width: 42rem;
   margin: 0 auto;
+}
+
+/* Header */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.app-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.app-btn-new {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+  color: white;
+  padding: 0.65rem 1.5rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.app-btn-new:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+/* Grid de tarefas */
+.tasks-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+/* TaskCard */
+.task-card {
+  padding: 1.5rem;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.task-card:hover {
+  border-color: #4b5563;
+  box-shadow: var(--shadow-card);
+}
+
+.task-card-title {
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: #e0e7ff;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin: 0 0 0.35rem 0;
+}
+
+.task-card-desc {
+  color: var(--text-secondary);
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.task-card-actions {
+  display: flex;
+  gap: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.task-card:hover .task-card-actions {
+  opacity: 1;
+}
+
+.task-card-btn {
+  padding: 0.5rem 0.75rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.task-card-btn-edit {
+  color: var(--warning);
+  background: transparent;
+}
+
+.task-card-btn-edit:hover {
+  background: rgba(234, 179, 8, 0.15);
+}
+
+.task-card-btn-delete {
+  color: var(--danger);
+  background: transparent;
+}
+
+.task-card-btn-delete:hover {
+  background: rgba(239, 68, 68, 0.15);
+}
+
+/* TaskModal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 50;
+}
+
+.modal-box {
+  background: var(--bg-card);
   padding: 2rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  width: 100%;
+  max-width: 28rem;
+  box-shadow: var(--shadow);
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 1.5rem 0;
+}
+
+.modal-input,
+.modal-textarea {
+  width: 100%;
+  background: var(--bg-main);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.modal-input:focus,
+.modal-textarea:focus {
+  border-color: var(--accent);
+}
+
+.modal-input {
+  margin-bottom: 1rem;
+}
+
+.modal-textarea {
+  margin-bottom: 1.5rem;
+  min-height: 8rem;
+  resize: vertical;
+}
+
+.modal-textarea::placeholder,
+.modal-input::placeholder {
+  color: #6b7280;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.modal-btn {
+  flex: 1;
+  padding: 0.85rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.modal-btn-cancel {
+  background: #374151;
+  color: white;
+}
+
+.modal-btn-cancel:hover {
+  background: #4b5563;
+}
+
+.modal-btn-save {
+  background: var(--accent);
+  color: white;
+}
+
+.modal-btn-save:hover {
+  background: var(--accent-hover);
+}
+
+/* Loading */
+.loading-state {
   text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+  color: var(--text-secondary);
+  padding: 5rem 2rem;
+  font-size: 1.1rem;
 }
