@@ -11,6 +11,9 @@ export function TaskCard({ task, onEdit, onDelete }: TaskCardProps) {
     <div className="task-card">
       <div>
         <h2 className="task-card-title">{task.titulo}</h2>
+        <p className="task-card-desc">
+          Tipo: <span>{task.tipo}</span>
+        </p>
         <p className="task-card-desc">{task.descricao}</p>
       </div>
       <div className="task-card-actions">

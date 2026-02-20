@@ -7,8 +7,8 @@ export const taskService = {
     return response.data;
   },
 
-  createTasks: async (titulo: string, descricao: string) => {
-    const response = await api.post("/tasks", { titulo, descricao });
+  createTasks: async (titulo: string, tipo: string, descricao: string) => {
+    const response = await api.post("/tasks", { titulo, tipo, descricao });
     return response.data;
   },
 
@@ -16,8 +16,8 @@ export const taskService = {
     await api.delete(`/tasks/${id}`);
   },
 
-  updateTask: async (id: number, titulo: string, descricao: string) => {
-    const response = await api.put(`/tasks/${id}`, { titulo, descricao });
+  updateTask: async (id: number, titulo: string, tipo: string, descricao: string) => {
+    const response = await api.put(`/tasks/${id}`, { titulo, tipo, descricao });
     return response.data;
   },
 };

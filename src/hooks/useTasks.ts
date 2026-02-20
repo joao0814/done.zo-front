@@ -16,8 +16,12 @@ export const useTasks = () => {
     }
   }, []);
 
-  const createTask = async (titulo: string, descricao: string) => {
-    const newTask = await taskService.createTasks(titulo, descricao);
+  const createTask = async (
+    titulo: string,
+    tipo: string,
+    descricao: string,
+  ) => {
+    const newTask = await taskService.createTasks(titulo, tipo, descricao);
     setTasks((prev) => [...prev, newTask.task]);
   };
 
@@ -26,8 +30,13 @@ export const useTasks = () => {
     setTasks((prev) => prev.filter((task) => task.id !== id));
   };
 
-  const updateTask = async (id: number, titulo: string, descricao: string) => {
-    const updated = await taskService.updateTask(id, titulo, descricao);
+  const updateTask = async (
+    id: number,
+    titulo: string,
+    tipo: string,
+    descricao: string,
+  ) => {
+    const updated = await taskService.updateTask(id, titulo, tipo, descricao);
     setTasks((prev) =>
       prev.map((task) => (task.id === id ? updated.task : task)),
     );

@@ -4,7 +4,7 @@ import { type Task } from "../types";
 interface TaskModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (titulo: string, descricao: string) => void;
+  onSubmit: (titulo: string, tipo: string, descricao: string) => void;
   taskToEdit?: Task | null;
 }
 
@@ -16,14 +16,18 @@ export function TaskModal({
 }: TaskModalProps) {
   const [titulo, setTitulo] = useState("");
   const [descricao, setDescricao] = useState("");
+  const tipos = ["Pessoal", "Trabalho", "Lazer"];
+  const [tipoSelecionado, setTipoSelecionado] = useState(tipos[0]);
 
   useEffect(() => {
     if (taskToEdit) {
       setTitulo(taskToEdit.titulo);
+      setTipoSelecionado(taskToEdit.tipo);
       setDescricao(taskToEdit.descricao);
     } else {
       setTitulo("");
       setDescricao("");
+      setTipoSelecionado(tipos[0]);
     }
   }, [taskToEdit, isOpen]);
 
@@ -36,7 +40,7 @@ export function TaskModal({
         onClick={(e) => e.stopPropagation()}
         onSubmit={(e) => {
           e.preventDefault();
-          onSubmit(titulo, descricao);
+          onSubmit(titulo, tipoSelecionado, descricao);
         }}
       >
         <h2 className="modal-title">
@@ -49,6 +53,19 @@ export function TaskModal({
           onChange={(e) => setTitulo(e.target.value)}
           required
         />
+
+        <select
+          className="modal-input"
+          value={tipoSelecionado}
+          onChange={(e) => setTipoSelecionado(e.target.value)}
+        >
+          {tipos.map((tipo) => (
+            <option key={tipo} value={tipo}>
+              {tipo}
+            </option>
+          ))}
+        </select>
+
         <textarea
           className="modal-textarea"
           placeholder="Descrição"

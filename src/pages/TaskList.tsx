@@ -25,11 +25,15 @@ function TaskList() {
     setIsModalOpen(true);
   };
 
-  const handleSubmit = async (titulo: string, descricao: string) => {
+  const handleSubmit = async (
+    titulo: string,
+    tipo: string,
+    descricao: string,
+  ) => {
     if (taskToEdit) {
-      await updateTask(taskToEdit.id, titulo, descricao);
+      await updateTask(taskToEdit.id, titulo, tipo, descricao);
     } else {
-      await createTask(titulo, descricao);
+      await createTask(titulo, tipo, descricao);
     }
     setIsModalOpen(false);
   };

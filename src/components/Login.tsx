@@ -13,7 +13,7 @@ export function Login() {
     try {
       // 1. Chama o seu Back-end no Express
       const response = await api.post("/auth/login", { email, senha });
-      
+
       // 2. Extrai o token e o usuário
       const { token, user } = response.data;
 
@@ -33,7 +33,9 @@ export function Login() {
     <div className="login-container">
       <form onSubmit={handleLogin} className="login-form">
         <h1 className="login-title">Done.zo</h1>
-        <p className="login-subtitle">Faça login para gerenciar suas tarefas.</p>
+        <p className="login-subtitle">
+          Faça login para gerenciar suas tarefas.
+        </p>
 
         <div className="login-fields">
           <input
