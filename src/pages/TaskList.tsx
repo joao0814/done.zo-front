@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { useTasks } from "./hooks/useTasks";
-import { type Task } from "./types";
-import { TaskModal } from "./components/TaskModal";
-import { TaskCard } from "./components/TaskCard";
-import "./App.css";
+import { useTasks } from "../hooks/useTasks";
+import { type Task } from "../types";
+import { TaskModal } from "../components/TaskModal";
+import { TaskCard } from "../components/TaskCard";
+import "../App.css";
 
 function TaskList() {
   const { tasks, loading, loadTasks, createTask, removeTask, updateTask } =
@@ -46,16 +46,18 @@ function TaskList() {
           </button>
         </header>
 
-        <main className="tasks-grid">
-          {tasks.map((task) => (
-            <TaskCard
-              key={task.id}
-              task={task}
-              onEdit={handleOpenEdit}
-              onDelete={removeTask}
-            />
-          ))}
-        </main>
+        <div className="tasks-scroll-area">
+          <main className="tasks-grid">
+            {tasks.map((task) => (
+              <TaskCard
+                key={task.id}
+                task={task}
+                onEdit={handleOpenEdit}
+                onDelete={removeTask}
+              />
+            ))}
+          </main>
+        </div>
 
         <TaskModal
           isOpen={isModalOpen}

@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Login } from "./components/Login";
-import TaskList from "./TaskList";
+import TaskList from "./pages/TaskList";
 import "./App.css";
 
 export default function App() {
