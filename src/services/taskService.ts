@@ -7,17 +7,46 @@ export const taskService = {
     return response.data;
   },
 
-  createTasks: async (titulo: string, tipo: string, descricao: string) => {
-    const response = await api.post("/tasks", { titulo, tipo, descricao });
-    return response.data;
-  },
-
   deleteTask: async (id: number) => {
     await api.delete(`/tasks/${id}`);
   },
 
-  updateTask: async (id: number, titulo: string, tipo: string, descricao: string) => {
-    const response = await api.put(`/tasks/${id}`, { titulo, tipo, descricao });
+  createTasks: async (
+    titulo: string,
+    tipo: string,
+    descricao: string,
+    prioridade: string,
+    data_limite: string,
+    estimativa: number,
+  ) => {
+    const response = await api.post("/tasks", {
+      titulo,
+      tipo,
+      descricao,
+      prioridade,
+      data_limite,
+      estimativa,
+    });
+    return response.data;
+  },
+
+  updateTask: async (
+    id: number,
+    titulo: string,
+    tipo: string,
+    descricao: string,
+    prioridade: string,
+    data_limite: string,
+    estimativa: number,
+  ) => {
+    const response = await api.put(`/tasks/${id}`, {
+      titulo,
+      tipo,
+      descricao,
+      prioridade,
+      data_limite,
+      estimativa,
+    });
     return response.data;
   },
 };

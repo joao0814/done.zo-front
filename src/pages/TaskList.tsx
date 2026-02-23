@@ -29,11 +29,29 @@ function TaskList() {
     titulo: string,
     tipo: string,
     descricao: string,
+    prioridade: string,
+    data_limite: string,
+    estimativa: number,
   ) => {
     if (taskToEdit) {
-      await updateTask(taskToEdit.id, titulo, tipo, descricao);
+      await updateTask(
+        taskToEdit.id,
+        titulo,
+        tipo,
+        descricao,
+        prioridade,
+        data_limite,
+        estimativa,
+      );
     } else {
-      await createTask(titulo, tipo, descricao);
+      await createTask(
+        titulo,
+        tipo,
+        descricao,
+        prioridade,
+        data_limite,
+        estimativa,
+      );
     }
     setIsModalOpen(false);
   };

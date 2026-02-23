@@ -3,4 +3,7 @@ export interface Task {
   titulo: string;
   tipo: string;
   descricao: string;
+  prioridade: string;
+  data_limite: string;
+  estimativa: number;
 }

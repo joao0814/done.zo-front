@@ -20,8 +20,18 @@ export const useTasks = () => {
     titulo: string,
     tipo: string,
     descricao: string,
+    prioridade: string,
+    data_limite: string,
+    estimativa: number,
   ) => {
-    const newTask = await taskService.createTasks(titulo, tipo, descricao);
+    const newTask = await taskService.createTasks(
+      titulo,
+      tipo,
+      descricao,
+      prioridade,
+      data_limite,
+      estimativa,
+    );
     setTasks((prev) => [...prev, newTask.task]);
   };
 
@@ -35,8 +45,19 @@ export const useTasks = () => {
     titulo: string,
     tipo: string,
     descricao: string,
+    prioridade: string,
+    data_limite: string,
+    estimativa: number,
   ) => {
-    const updated = await taskService.updateTask(id, titulo, tipo, descricao);
+    const updated = await taskService.updateTask(
+      id,
+      titulo,
+      tipo,
+      descricao,
+      prioridade,
+      data_limite,
+      estimativa,
+    );
     setTasks((prev) =>
       prev.map((task) => (task.id === id ? updated.task : task)),
     );

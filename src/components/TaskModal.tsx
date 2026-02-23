@@ -4,7 +4,14 @@ import { type Task } from "../types";
 interface TaskModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (titulo: string, tipo: string, descricao: string) => void;
+  onSubmit: (
+    titulo: string,
+    tipo: string,
+    descricao: string,
+    prioridade: string,
+    data_limite: string,
+    estimativa: number,
+  ) => void;
   taskToEdit?: Task | null;
 }
 
@@ -16,6 +23,9 @@ export function TaskModal({
 }: TaskModalProps) {
   const [titulo, setTitulo] = useState("");
   const [descricao, setDescricao] = useState("");
+  const [prioridade, setPrioridade] = useState("Baixa");
+  const [dataLimite, setDataLimite] = useState("");
+  const [estimativa, setEstimativa] = useState(0);
   const tipos = ["Pessoal", "Trabalho", "Lazer"];
   const [tipoSelecionado, setTipoSelecionado] = useState(tipos[0]);
 
@@ -24,9 +34,15 @@ export function TaskModal({
       setTitulo(taskToEdit.titulo);
       setTipoSelecionado(taskToEdit.tipo);
       setDescricao(taskToEdit.descricao);
+      setPrioridade(taskToEdit.prioridade);
+      setDataLimite(taskToEdit.data_limite);
+      setEstimativa(taskToEdit.estimativa);
     } else {
       setTitulo("");
       setDescricao("");
+      setPrioridade("Baixa");
+      setDataLimite("");
+      setEstimativa(0);
       setTipoSelecionado(tipos[0]);
     }
   }, [taskToEdit, isOpen]);
@@ -40,7 +56,14 @@ export function TaskModal({
         onClick={(e) => e.stopPropagation()}
         onSubmit={(e) => {
           e.preventDefault();
-          onSubmit(titulo, tipoSelecionado, descricao);
+          onSubmit(
+            titulo,
+            tipoSelecionado,
+            descricao,
+            prioridade,
+            dataLimite,
+            estimativa,
+          );
         }}
       >
         <h2 className="modal-title">
