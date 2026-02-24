@@ -27,6 +27,7 @@
 .tasks-scroll-area {
   flex: 1;
   overflow-y: auto;
+  padding-top: 0.25rem;
   padding-right: 0.5rem;
 }
 
@@ -84,100 +85,134 @@
   border: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  gap: 1rem;
   transition:
+    transform 0.2s ease,
     border-color 0.2s ease,
     box-shadow 0.2s ease;
 }
 
 .task-card:hover {
-  border-color: #4b5563;
-  box-shadow: var(--shadow-card);
+  transform: none;
+  border-color: var(--accent);
+  box-shadow: var(--shadow);
+}
+
+.task-card-content {
+  flex: 1;
+  min-width: 0;
 }
 
 .task-card-title {
   font-weight: 700;
   font-size: 1.15rem;
-  color: #e0e7ff;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  margin: 0 0 0.35rem 0;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+  margin: 0 0 0.5rem 0;
 }
 
 .task-card-desc {
   color: var(--text-secondary);
-  margin: 0;
+  margin: 0 0 0.9rem 0;
   font-size: 0.95rem;
-  line-height: 1.5;
+  line-height: 1.6;
+}
+
+.task-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.task-chip {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  background: var(--bg-main);
+  color: var(--text-secondary);
+  border-radius: 9999px;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.8rem;
+  font-weight: 600;
 }
 
 .task-card-actions {
   display: flex;
+  flex-shrink: 0;
   gap: 0.5rem;
-  opacity: 0;
-  transition: opacity 0.2s ease;
+  opacity: 0.88;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
 .task-card:hover .task-card-actions {
   opacity: 1;
+  transform: translateY(-1px);
 }
 
 .task-card-btn {
-  padding: 0.5rem 0.75rem;
-  border: none;
-  border-radius: 8px;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
   font-size: 0.85rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
 }
 
 .task-card-btn-edit {
   color: var(--warning);
-  background: transparent;
+  background: var(--bg-main);
 }
 
 .task-card-btn-edit:hover {
-  background: rgba(234, 179, 8, 0.15);
+  border-color: var(--warning);
 }
 
 .task-card-btn-delete {
   color: var(--danger);
-  background: transparent;
+  background: var(--bg-main);
 }
 
 .task-card-btn-delete:hover {
-  background: rgba(239, 68, 68, 0.15);
+  border-color: var(--danger);
 }
 
 /* TaskModal */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(4px);
+  background: color-mix(in srgb, var(--bg-main) 78%, black);
+  backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
+  padding: 1.5rem;
   z-index: 50;
 }
 
 .modal-box {
-  background: var(--bg-card);
-  padding: 2rem;
+  background: color-mix(in srgb, var(--bg-card) 90%, var(--bg-main));
+  padding: 2rem 1.8rem;
   border-radius: var(--radius-lg);
   border: 1px solid var(--border);
   width: 100%;
-  max-width: 28rem;
+  max-width: 30rem;
+  max-height: calc(100vh - 3rem);
+  overflow-y: auto;
   box-shadow: var(--shadow);
 }
 
 .modal-title {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: 1.35rem;
+  font-weight: 800;
   color: var(--text-primary);
-  margin: 0 0 1.5rem 0;
+  margin: 0 0 1.25rem 0;
+  letter-spacing: -0.01em;
 }
 
 .modal-input,
@@ -185,33 +220,43 @@
   width: 100%;
   background: var(--bg-main);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 0.85rem 1rem;
+  border-radius: var(--radius);
+  padding: 0.9rem 1rem;
   color: var(--text-primary);
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-family: inherit;
   outline: none;
-  transition: border-color 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .modal-input:focus,
 .modal-textarea:focus {
   border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 24%, transparent);
 }
 
 .modal-input {
-  margin-bottom: 1rem;
+  margin-bottom: 0.9rem;
 }
 
 .modal-textarea {
-  margin-bottom: 1.5rem;
-  min-height: 8rem;
+  margin-bottom: 1.25rem;
+  min-height: 7.5rem;
   resize: vertical;
+  line-height: 1.5;
 }
 
 .modal-textarea::placeholder,
 .modal-input::placeholder {
-  color: #6b7280;
+  color: var(--text-secondary);
+}
+
+.modal-input[type="date"],
+.modal-input[type="number"],
+.modal-input select {
+  color-scheme: dark;
 }
 
 .modal-buttons {
@@ -221,31 +266,40 @@
 
 .modal-btn {
   flex: 1;
-  padding: 0.85rem;
+  padding: 0.8rem;
   border-radius: 12px;
-  font-size: 1rem;
-  font-weight: 600;
-  border: none;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border: 1px solid transparent;
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.15s ease;
 }
 
 .modal-btn-cancel {
-  background: #374151;
-  color: white;
+  background: var(--bg-main);
+  color: var(--text-secondary);
+  border-color: var(--border);
 }
 
 .modal-btn-cancel:hover {
-  background: #4b5563;
+  color: var(--text-primary);
+  border-color: var(--text-secondary);
 }
 
 .modal-btn-save {
-  background: var(--accent);
+  background: linear-gradient(
+    135deg,
+    var(--accent) 0%,
+    var(--accent-hover) 100%
+  );
   color: white;
 }
 
 .modal-btn-save:hover {
-  background: var(--accent-hover);
+  transform: translateY(-1px);
 }
 
 /* Loading */
