@@ -58,9 +58,23 @@ export const useTasks = () => {
       data_limite,
       estimativa,
     );
+
+    const updatedTask: Task = updated?.task ??
+      updated?.data?.task ?? {
+        id,
+        titulo,
+        tipo,
+        descricao,
+        prioridade,
+        data_limite,
+        estimativa,
+      };
+
     setTasks((prev) =>
-      prev.map((task) => (task.id === id ? updated.task : task)),
+      prev.map((task) => (task.id === id ? updatedTask : task)),
     );
+
+    await loadTasks();
   };
 
   return { tasks, loading, loadTasks, createTask, removeTask, updateTask };

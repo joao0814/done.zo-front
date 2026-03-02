@@ -61,12 +61,27 @@ export function TaskModal({
     prioridade[0],
   );
 
+  const normalizePrioridadeForSelect = (rawPrioridade: string) => {
+    if (!rawPrioridade) return prioridade[0];
+
+    const normalized = rawPrioridade
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
+
+    if (normalized === "baixa") return "Baixa";
+    if (normalized === "media") return "Média";
+    if (normalized === "alta") return "Alta";
+
+    return prioridade[0];
+  };
+
   useEffect(() => {
     if (taskToEdit) {
       setTitulo(taskToEdit.titulo);
       setTipoSelecionado(taskToEdit.tipo);
       setDescricao(taskToEdit.descricao);
-      setPrioridadeSelecionada(taskToEdit.prioridade);
+      setPrioridadeSelecionada(normalizePrioridadeForSelect(taskToEdit.prioridade));
       setDataLimite(normalizeDateForInput(taskToEdit.data_limite));
       setEstimativa(taskToEdit.estimativa);
     } else {
