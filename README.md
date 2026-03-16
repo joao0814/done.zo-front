@@ -23,4 +23,11 @@ Construir uma aplicação frontend moderna e escalável para gerenciamento de ta
 - React
 - TypeScript
 - TailwindCSS
-- Axios 
+- Axios
+
+## Testes
+
+O projeto usa Vitest com Testing Library para testes de componentes.
+
+- Rodar em modo watch: `npm test`
+- Rodar uma vez: `npm run test:run`
